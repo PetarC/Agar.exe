@@ -31,4 +31,9 @@
 Debug/
 docs/
 *.cproject
-*.project
+*.project/GourceVisualization.sh
+/GravatarGrab.perl
+/.project
+/GourceVisualization.sh
+/psuedo
+/sysLog.txt
