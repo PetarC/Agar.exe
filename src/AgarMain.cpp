@@ -11,11 +11,7 @@ int main(int argc, char* argv[])
 	HydraEngine* engine = HydraEngine::getInstance();
 	engine->init();
 	engine->setWTitle("Agar.exe, the free port of Agar.io");
-
 	SDL_Renderer* renderer = engine->getRenderer();
-
-	Timer endTime; //Ha.
-	endTime.start();
 
 	bool quit = false;
 	while (!quit)
