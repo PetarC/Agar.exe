@@ -27,7 +27,7 @@ void Absorbable::draw(SDL_Renderer* renderer, float vPosX, float vPosY, float sc
 	SDL_SetRenderDrawColor(renderer, color.getR(), color.getG(), color.getB(), 255);
 
 	//Draw a circle... actually a square for now. Sorry!
-	double radius = log2(mass) * scale * 10.f; //TODO: Ensure that this formula works as intended...
+	double radius = mass * scale; //TODO: Ensure that this formula works as intended...
 	SDL_Rect rect;
 	rect.x = posX - (vPosX * scale), rect.y = posY - (vPosY * scale);
 	rect.h = radius, rect.w = radius;
