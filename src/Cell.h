@@ -2,8 +2,8 @@
 
 #include "Absorbable.h"
 
-#define cellForce 20 //The force a cell can apply (physics)
-#define cellSpeed 20 //Max speed of any given cell
+#define cellForce 20.f //The force a cell can apply (physics)
+#define cellSpeed 4.5f //Max speed of a unit cell
 
 class Cell : public Absorbable
 {

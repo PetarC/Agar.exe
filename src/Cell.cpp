@@ -7,7 +7,7 @@ Cell::Cell(int newMass) : Absorbable(newMass)
 }
 void Cell::setAbTarget(float pX, float pY)
 {
-	tDir.setX(pX - posX); //TODO: Ensure relative position calculation works
+	tDir.setX(pX - posX);
 	tDir.setY(pY - posY);
 }
 void Cell::setRlTarget(float pX, float pY)
@@ -18,13 +18,14 @@ void Cell::setRlTarget(float pX, float pY)
 void Cell::move()
 {
 	float accel = cellForce / mass;
-	float maxSpeed = cellSpeed / mass; //This might need to change
+	float maxSpeed = (cellForce / mass * 2.75) * cellSpeed;
 
 	if (tDir.getMag() > accel)
 		tDir.setMag(accel);
 	vel = vel + tDir;
 	if (vel.getMag() > maxSpeed)
 		vel.setMag(maxSpeed);
+
 	posX += vel.getX();
 	posY += vel.getY();
 }

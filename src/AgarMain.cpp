@@ -16,25 +16,26 @@ int main(int argc, char* argv[])
 	engine->setWTitle("Agar.exe, the free port of Agar.io");
 	SDL_Renderer* renderer = engine->getRenderer();
 
-	Absorbable object(20);
-	object.setX(50); object.setY(50);
+	Cell cell(200);
 
 	bool quit = false;
 	while (!quit)
 	{
+		Timer fps;
+		fps.start();
+
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 			if (event.type == SDL_QUIT)
 				quit = true;
-
-		Timer fps;
-		fps.start();
 		SDL_RenderClear(renderer);
 		drawGrid(0, 0);
 
-		object.setMass(object.getMass() + 1);
-		cout << object.getMass() << endl;
-		object.draw(renderer, 0, 0, 1);
+		int mX, mY;
+		SDL_GetMouseState(&mX, &mY);
+		cell.setAbTarget(mX, mY);
+		cell.move();
+		cell.draw(renderer, 0, 0, 1);
 
 		SDL_RenderPresent(renderer);
 		while (fps.getTime() < 16);
