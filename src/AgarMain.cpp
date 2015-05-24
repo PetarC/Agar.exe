@@ -1,8 +1,8 @@
 #include "../lib/Hydra Engine/Hydra.h"
 using namespace Hydra;
 
-#define GRID_X 10
-#define GRID_Y 10
+#define GRID_X 15
+#define GRID_Y 15
 
 void drawGrid(int xPos, int yPos);
 
@@ -16,17 +16,23 @@ int main(int argc, char* argv[])
 
 	Timer endTime; //Ha.
 	endTime.start();
-	for (int i = 0; !endTime.hasIntervalPassed(2500); i++)
+
+	bool quit = false;
+	while (!quit)
 	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+			if (event.type == SDL_QUIT)
+				quit = true;
+
 		Timer fps;
 		fps.start();
 		SDL_RenderClear(renderer);
-		drawGrid(i, i * 3);
+
+		drawGrid(0, 0);
 		SDL_RenderPresent(renderer);
 		while (fps.getTime() < 16);
 	}
-
-
 	engine->shutdown();
 }
 
