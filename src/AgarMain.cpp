@@ -1,4 +1,5 @@
 #include "../lib/Hydra Engine/Hydra.h"
+#include "Absorbable.h"
 using namespace Hydra;
 
 #define GRID_X 15
@@ -8,10 +9,14 @@ void drawGrid(int xPos, int yPos);
 
 int main(int argc, char* argv[])
 {
+	srand(SDL_GetTicks());
 	HydraEngine* engine = HydraEngine::getInstance();
 	engine->init();
 	engine->setWTitle("Agar.exe, the free port of Agar.io");
 	SDL_Renderer* renderer = engine->getRenderer();
+
+	Absorbable object(20);
+	object.setX(50); object.setY(50);
 
 	bool quit = false;
 	while (!quit)
@@ -24,8 +29,12 @@ int main(int argc, char* argv[])
 		Timer fps;
 		fps.start();
 		SDL_RenderClear(renderer);
-
 		drawGrid(0, 0);
+
+		object.setMass(object.getMass() + 1);
+		cout << object.getMass() << endl;
+		object.draw(renderer, 0, 0, 1);
+
 		SDL_RenderPresent(renderer);
 		while (fps.getTime() < 16);
 	}
