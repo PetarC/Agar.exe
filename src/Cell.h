@@ -4,6 +4,7 @@
 
 #define cellForce 20.f //The force a cell can apply (physics)
 #define cellSpeed 4.5f //Max speed of a unit cell
+#define minSplitSize 40 //Minimum size needed to split.
 
 class Cell : public Absorbable
 {
@@ -12,6 +13,7 @@ public:
 	void setAbTarget(float pX, float pY); 	//Absolute target
 	void setRlTarget(float pX, float pY);	//Target relative to cell
 	void move();							//Moves the cell using its target information
+	Cell* split(); 							//Splits this cell into two equal parts. Returns a pointer to the new cell object, created on the heap.
 private:
 	Vector2D tDir; //Direction to target
 	Vector2D vel;

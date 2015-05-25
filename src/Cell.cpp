@@ -29,3 +29,13 @@ void Cell::move()
 	posX += vel.getX();
 	posY += vel.getY();
 }
+Cell* Cell::split()
+{
+	if (mass < minSplitSize)
+		return nullptr;
+
+	mass /= 2.f;
+	Cell* result = new Cell(mass / 2.f);
+	result->vel = vel * 4; //This cell should come off with a BIG velocity.
+	return result;
+}
