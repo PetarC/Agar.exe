@@ -20,14 +20,19 @@ void Cell::move()
 	float accel = cellForce / mass;
 	float maxSpeed = (cellForce / mass * 2.75) * cellSpeed;
 
-	if (tDir.getMag() > accel)
-		tDir.setMag(accel);
-	vel = vel + tDir;
 	if (vel.getMag() > maxSpeed)
-		vel.setMag(vel.getMag() - (accel / 2)); //Decelerate at half normal accel?
+			vel.setMag(vel.getMag() - (accel / 2)); //Decelerate at half normal accel?
 
 	posX += vel.getX();
 	posY += vel.getY();
+}
+void Cell::moveToTarget()
+{
+	float accel = cellForce / mass;
+
+	if (tDir.getMag() > accel)
+		tDir.setMag(accel);
+	vel = vel + tDir;
 }
 Cell* Cell::split()
 {
@@ -36,6 +41,8 @@ Cell* Cell::split()
 
 	mass /= 2.f;
 	Cell* result = new Cell(mass / 2.f);
+	*result = *this; //???
+	result->mass /= 2.f;
 	result->vel.setMag(result->vel.getMag() * 4.f); //This cell should come off with a BIG velocity.
 	return result;
 }

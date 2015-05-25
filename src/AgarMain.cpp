@@ -17,6 +17,8 @@ int main(int argc, char* argv[])
 	SDL_Renderer* renderer = engine->getRenderer();
 
 	Cell cell(200);
+	vector<Cell*> cells;
+	cells.push_back(&cell);
 
 	bool quit = false;
 	while (!quit)
@@ -26,16 +28,31 @@ int main(int argc, char* argv[])
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
+		{
 			if (event.type == SDL_QUIT)
 				quit = true;
+			if (event.key.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+			{
+				Cell* temp = cell.split();
+				if (temp != nullptr)
+					cells.push_back(temp);
+			}
+		}
 		SDL_RenderClear(renderer);
 		drawGrid(0, 0);
 
 		int mX, mY;
 		SDL_GetMouseState(&mX, &mY);
 		cell.setAbTarget(mX, mY);
-		cell.move();
-		cell.draw(renderer, 0, 0, 1);
+		cell.moveToTarget();
+
+		for (auto iter = cells.begin(); iter != cells.end(); iter++)
+		{
+			if (*iter == nullptr)
+				continue;
+			(*iter)->move();
+			(*iter)->draw(renderer, 0, 0, 1);
+		}
 
 		SDL_RenderPresent(renderer);
 		while (fps.getTime() < 16);
