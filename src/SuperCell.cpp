@@ -10,6 +10,11 @@ void SuperCell::setRlTarget(float pX, float pY)
 	for (auto iter = cells.begin(); iter != cells.end(); iter++)
 		(*iter)->setRlTarget(pX, pY);
 }
+void SuperCell::moveToTarget()
+{
+	for (auto iter = cells.begin(); iter != cells.end(); iter++)
+		(*iter)->moveToTarget();
+}
 void SuperCell::split(vector<Cell*>* cellList)
 {
 	for (auto iter = cells.begin(); iter != cells.end(); iter++)

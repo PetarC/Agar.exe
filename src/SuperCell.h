@@ -10,6 +10,7 @@ class SuperCell
 public:
 	void setAbTarget(float pX, float pY); //Relative to grid
 	void setRlTarget(float px, float pY); //Relative to center of mass
+	void moveToTarget(); //Just calls the moveToTarget() function of all its controlled cells.
 	void split(vector<Cell*>* cellList); //The cells vector is passed so this supercell can add on cells to the list.
 	void addCell(Cell* newCell);
 	void removeCell(Cell* newCell); //TODO: Unstupidify
