@@ -32,7 +32,7 @@ void Absorbable::draw(SDL_Renderer* renderer, float vPosX, float vPosY, float sc
 	rect.x = posX - (vPosX * scale) - (radius / 2.f);
 	rect.y = posY - (vPosY * scale) - (radius / 2.f);
 	rect.h = radius,
-			rect.w = radius;
+	rect.w = radius;
 	SDL_RenderFillRect(renderer, &rect);
 }
 void Absorbable::setMass(float newMass)

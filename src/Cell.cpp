@@ -39,10 +39,10 @@ Cell* Cell::split()
 	if (mass < minSplitSize)
 		return nullptr;
 
-	mass /= 2.f;
 	Cell* result = new Cell(mass / 2.f);
 	*result = *this; //???
 	result->mass /= 2.f;
-	result->vel.setMag(result->vel.getMag() * 4.f); //This cell should come off with a BIG velocity.
+	mass /= 2.f;
+	result->vel.setMag(result->vel.getMag() * 3.f); //This cell should come off with a BIG velocity.
 	return result;
 }
