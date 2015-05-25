@@ -17,12 +17,18 @@ void SuperCell::moveToTarget()
 }
 void SuperCell::split(vector<Cell*>* cellList)
 {
+	vector<Cell*> cellBuffer; //needed so we don't try to split newly split cells
 	for (auto iter = cells.begin(); iter != cells.end(); iter++)
 	{
 		Cell* temp =(*iter)->split();
 		if (temp != nullptr)
+		{
 			cellList->push_back(temp);
+			cellBuffer.push_back(temp);
+		}
 	}
+	for (auto iter = cellBuffer.begin(); iter != cellBuffer.end(); iter++)
+		addCell(*iter);
 }
 void SuperCell::addCell(Cell* newCell)
 {

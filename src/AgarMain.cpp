@@ -1,6 +1,7 @@
 #include "../lib/Hydra Engine/Hydra.h"
 #include "Absorbable.h"
 #include "Cell.h"
+#include "SuperCell.h"
 using namespace Hydra;
 
 #define GRID_X 15
@@ -16,9 +17,13 @@ int main(int argc, char* argv[])
 	engine->setWTitle("Agar.exe, the free port of Agar.io");
 	SDL_Renderer* renderer = engine->getRenderer();
 
-	Cell cell(200);
+
 	vector<Cell*> cells;
+
+	SuperCell playerCells;
+	Cell cell(200);
 	cells.push_back(&cell);
+	playerCells.addCell(&cell);
 
 	bool quit = false;
 	while (!quit)
@@ -32,19 +37,15 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_QUIT)
 				quit = true;
 			if (event.key.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_SPACE)
-			{
-				Cell* temp = cell.split();
-				if (temp != nullptr)
-					cells.push_back(temp);
-			}
+				playerCells.split(&cells);
 		}
 		SDL_RenderClear(renderer);
 		drawGrid(0, 0);
 
 		int mX, mY;
 		SDL_GetMouseState(&mX, &mY);
-		cell.setAbTarget(mX, mY);
-		cell.moveToTarget();
+		playerCells.setAbTarget(mX, mY);
+		playerCells.moveToTarget();
 
 		for (auto iter = cells.begin(); iter != cells.end(); iter++)
 		{
