@@ -36,6 +36,6 @@ Cell* Cell::split()
 
 	mass /= 2.f;
 	Cell* result = new Cell(mass / 2.f);
-	result->vel = vel * 4; //This cell should come off with a BIG velocity.
+	result->vel.setMag(result->vel.getMag() * 4.f); //This cell should come off with a BIG velocity.
 	return result;
 }
