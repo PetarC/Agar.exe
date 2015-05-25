@@ -24,7 +24,7 @@ void Cell::move()
 		tDir.setMag(accel);
 	vel = vel + tDir;
 	if (vel.getMag() > maxSpeed)
-		vel.setMag(maxSpeed);
+		vel.setMag(vel.getMag() - (accel / 2)); //Decelerate at half normal accel?
 
 	posX += vel.getX();
 	posY += vel.getY();
