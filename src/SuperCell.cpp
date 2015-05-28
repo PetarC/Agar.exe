@@ -49,7 +49,7 @@ float SuperCell::getCMassX()
 	float xPos = 0;
 	for (auto iter = cells.begin(); iter != cells.end(); iter++)
 		xPos += (*iter)->getX() * (*iter)->getMass();
-	xPos /= (float)cells.size();
+	xPos /= getMass() * (float)cells.size();
 	return xPos;
 }
 float SuperCell::getCMassY()
@@ -57,7 +57,7 @@ float SuperCell::getCMassY()
 	float yPos = 0;
 	for (auto iter = cells.begin(); iter != cells.end(); iter++)
 		yPos += (*iter)->getY() * (*iter)->getMass();
-	yPos /= (float)cells.size();
+	yPos /= getMass() * (float)cells.size();
 	return yPos;
 }
 float SuperCell::getMass()
