@@ -4,8 +4,8 @@
 #include "SuperCell.h"
 using namespace Hydra;
 
-#define GRID_X 15
-#define GRID_Y 15
+#define GRID_X 20
+#define GRID_Y 20
 
 void drawGrid(int xPos, int yPos);
 
@@ -25,6 +25,8 @@ int main(int argc, char* argv[])
 	cells.push_back(&cell);
 	playerCells.addCell(&cell);
 
+	float vX = 0, vY = 0; //Viewer X and Y
+
 	bool quit = false;
 	while (!quit)
 	{
@@ -39,20 +41,27 @@ int main(int argc, char* argv[])
 			if (event.key.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_SPACE)
 				playerCells.split(&cells);
 		}
-		SDL_RenderClear(renderer);
-		drawGrid(0, 0);
 
 		int mX, mY;
 		SDL_GetMouseState(&mX, &mY);
-		playerCells.setAbTarget(mX, mY);
+
+		vX = playerCells.getCMassX(); //Viewer coordinates dependent on the supercell's center of mass
+		vY = playerCells.getCMassY();
+		playerCells.setAbTarget(mX + vX - (engine->getWXSize() / 2.f), mY + vY - (engine->getWYSize() / 2.f));
 		playerCells.moveToTarget();
+
+		cout << vX << ", " << vY << endl;
+
+		//Graphics
+		SDL_RenderClear(renderer);
+		drawGrid(-vX, -vY);
 
 		for (auto iter = cells.begin(); iter != cells.end(); iter++)
 		{
 			if (*iter == nullptr)
 				continue;
 			(*iter)->move();
-			(*iter)->draw(renderer, 0, 0, 1);
+			(*iter)->draw(renderer, vX - (engine->getWXSize() / 2.f), vY - (engine->getWYSize() / 2.f), 1);
 		}
 
 		SDL_RenderPresent(renderer);
