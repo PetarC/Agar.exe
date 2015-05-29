@@ -50,8 +50,6 @@ int main(int argc, char* argv[])
 		playerCells.setAbTarget(mX + vX - (engine->getWXSize() / 2.f), mY + vY - (engine->getWYSize() / 2.f));
 		playerCells.moveToTarget();
 
-		cout << vX << ", " << vY << endl;
-
 		//Graphics
 		SDL_RenderClear(renderer);
 		drawGrid(-vX, -vY);
