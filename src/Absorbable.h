@@ -17,6 +17,7 @@ public:
 	float getX();
 	float getY();
 	float getMass();
+	SDL_Rect getRect(); //Gets a rectangle that can be used for collision detection purposes.
 protected:
 	float posX, posY;
 	float mass;

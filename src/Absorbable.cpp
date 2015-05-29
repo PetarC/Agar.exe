@@ -76,4 +76,13 @@ float Absorbable::getMass()
 {
 	return mass;
 }
-
+SDL_Rect Absorbable::getRect()
+{
+	double radius = mass; //TODO: Ensure that this formula works as intended...
+	SDL_Rect rect;
+	rect.x = posX;
+	rect.y = posY;
+	rect.h = radius,
+	rect.w = radius;
+	return rect;
+}
