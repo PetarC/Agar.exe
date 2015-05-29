@@ -21,4 +21,5 @@ protected:
 	float posX, posY;
 	float mass;
 	ColorRGB color;
+	ColorRGB accentColor; //The color around the edges.
 };

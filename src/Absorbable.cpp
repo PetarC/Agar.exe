@@ -9,9 +9,11 @@ Absorbable::Absorbable(int newMass)
 	ColorHSL temp;
 	temp.setH((rand() % 360) + 1);
 	temp.setS(1);
-	temp.setL(.5);
+	temp.setL(.5f);
 
 	color = temp.getRGB();
+	temp.setL(0.25f);
+	accentColor = temp.getRGB();
 }
 void Absorbable::absorb(Absorbable* object)
 {
@@ -24,8 +26,6 @@ void Absorbable::absorb(Absorbable* object)
 }
 void Absorbable::draw(SDL_Renderer* renderer, float vPosX, float vPosY, float scale)
 {
-	SDL_SetRenderDrawColor(renderer, color.getR(), color.getG(), color.getB(), 255);
-
 	//Draw a circle... actually a square for now. Sorry!
 	double radius = mass * scale; //TODO: Ensure that this formula works as intended...
 	SDL_Rect rect;
@@ -33,7 +33,24 @@ void Absorbable::draw(SDL_Renderer* renderer, float vPosX, float vPosY, float sc
 	rect.y = posY - (vPosY * scale) - (radius / 2.f);
 	rect.h = radius,
 	rect.w = radius;
+
+	SDL_SetRenderDrawColor(renderer, color.getR(), color.getG(), color.getB(), 255);
 	SDL_RenderFillRect(renderer, &rect);
+
+	//Border
+	rect.x--;
+	rect.y--;
+	rect.h += 2;
+	rect.w += 2;
+	SDL_SetRenderDrawColor(renderer, accentColor.getR(), accentColor.getG(), accentColor.getB(), 255);
+	for (int i = radius; i >= radius - 5; --i)
+	{
+		rect.x++;
+		rect.y++;
+		rect.h -= 2;
+		rect.w -= 2;
+		SDL_RenderDrawRect(renderer, &rect);
+	}
 }
 void Absorbable::setMass(float newMass)
 {
