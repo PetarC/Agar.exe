@@ -15,6 +15,7 @@ public:
 	void move();							//Moves the cell.
 	void moveToTarget();					//Changes velocity to go toward the target. You still need to call move() to effect a position change.
 	Cell* split(); 							//Splits this cell into two equal parts. Returns a pointer to the new cell object, created on the heap.
+	Vector2D getVel();						//Gets the velocity of this cell.
 private:
 	Vector2D tDir; //Direction to target
 	Vector2D vel;

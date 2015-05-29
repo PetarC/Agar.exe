@@ -47,3 +47,7 @@ Cell* Cell::split()
 	vel.setMag(vel.getMag() / 3.f);
 	return result;
 }
+Vector2D Cell::getVel()
+{
+	return vel;
+}
