@@ -18,10 +18,10 @@ void Cell::setRlTarget(float pX, float pY)
 void Cell::move()
 {
 	float accel = cellForce / (mass * 2.75f);
-	float maxSpeed = (cellForce / (mass * 10.f)) * cellSpeed;
+	float maxSpeed = (cellForce / mass) * cellSpeed;
 
 	if (vel.getMag() > maxSpeed)
-		vel.setMag(vel.getMag() - (accel / 2.f)); //Decelerate at half normal accel?
+		vel.setMag(vel.getMag() - (accel * 2.f)); //Decelerate at half normal accel?
 
 	posX += vel.getX();
 	posY += vel.getY();
