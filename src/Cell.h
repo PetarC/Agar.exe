@@ -3,8 +3,9 @@
 #include "Absorbable.h"
 
 #define cellForce 20.f //The force a cell can apply (physics)
-#define cellSpeed 3.5f //Max speed of a unit cell
+#define cellSpeed 15.f //Max speed of a unit cell
 #define minSplitSize 40 //Minimum size needed to split.
+#define absorbPercent 1.2f //The fraction the other cell's mass must be in order to be absorbed
 
 class Cell : public Absorbable
 {
