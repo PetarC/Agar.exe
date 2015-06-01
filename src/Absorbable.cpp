@@ -82,7 +82,7 @@ SDL_Rect Absorbable::getRect()
 	SDL_Rect rect;
 	rect.x = posX;
 	rect.y = posY;
-	rect.h = radius,
-	rect.w = radius;
+	rect.h = radius * 2.f;
+	rect.w = radius * 2.f;
 	return rect;
 }
