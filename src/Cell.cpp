@@ -51,3 +51,7 @@ Vector2D Cell::getVel()
 {
 	return vel;
 }
+void Cell::setVel(Vector2D newVel)
+{
+	vel = newVel;
+}

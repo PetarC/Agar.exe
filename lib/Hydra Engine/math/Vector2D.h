@@ -20,6 +20,7 @@ namespace Hydra
         Vector2D operator+(const Vector2D& vec);    //!< Standard addition.
         Vector2D operator-(const Vector2D& vec);    //!< Standard subtraction.
         double operator*(const Vector2D& vec);      //!< Dot product
+        Vector2D operator*(const double scalar);		//!< Scalar multiplication
 
         //All setters
         void setX(double newX);

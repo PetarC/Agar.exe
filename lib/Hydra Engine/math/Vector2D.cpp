@@ -84,4 +84,11 @@ namespace Hydra
         //Dot product
         return (xComp * vec.xComp) + (yComp * vec.yComp);
     }
+    Vector2D Vector2D::operator*(const double scalar)
+    {
+    	Vector2D vec = *this;
+    	vec.xComp *= scalar;
+    	vec.yComp *= scalar;
+    	return vec;
+    }
 }

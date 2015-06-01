@@ -8,6 +8,7 @@ using namespace Hydra;
 #define GRID_Y 20
 
 void drawGrid(int xPos, int yPos);
+inline bool colliding(SDL_Rect rect1, SDL_Rect rect2);
 
 int main(int argc, char* argv[])
 {
@@ -84,4 +85,12 @@ void drawGrid(int xPos, int yPos)
 		SDL_RenderDrawLine(engine->getRenderer(), (iX * GRID_X) + xPos, 0, (iX * GRID_X) + xPos, engine->getWYSize());
 	for (int iY = -yPos / GRID_Y; iY <= (engine->getWYSize() / GRID_Y) + abs(yPos); iY++)
 		SDL_RenderDrawLine(engine->getRenderer(), 0, (iY * GRID_Y) + yPos, engine->getWXSize(), (iY * GRID_Y) + yPos);
+}
+bool colliding(SDL_Rect rect1, SDL_Rect rect2)
+{
+	SDL_Rect result;
+	if (SDL_IntersectRect(&rect1, &rect2, &result) == SDL_TRUE)
+		return true;
+	else
+		return false;
 }
