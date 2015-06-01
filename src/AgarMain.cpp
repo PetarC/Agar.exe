@@ -11,6 +11,7 @@ using namespace Hydra;
 
 void drawGrid(int xPos, int yPos);
 inline bool colliding(SDL_Rect rect1, SDL_Rect rect2);
+inline double getScale(SDL_Rect dims);
 
 int main(int argc, char* argv[])
 {
@@ -27,6 +28,7 @@ int main(int argc, char* argv[])
 	Cell cell(200);
 	cells.push_back(&cell);
 	playerCells.addCell(&cell);
+	double scale = 1.0;
 
 	float vX = 0, vY = 0; //Viewer X and Y
 
@@ -57,12 +59,17 @@ int main(int argc, char* argv[])
 		SDL_RenderClear(renderer);
 		drawGrid(-vX, -vY);
 
+		//Determine scaling
+		scale = getScale(playerCells.getDims());
+		if (scale > 1.f)
+			scale = 1.f; //No zooming in!
+
 		for (auto iter = cells.begin(); iter != cells.end(); iter++)
 		{
 			if (*iter == nullptr)
 				continue;
 			(*iter)->move();
-			(*iter)->draw(renderer, vX - (engine->getWXSize() / 2.f), vY - (engine->getWYSize() / 2.f), 1);
+			(*iter)->draw(renderer, vX - (engine->getWXSize() / 2.f), vY - (engine->getWYSize() / 2.f), scale);
 		}
 
 		SDL_RenderPresent(renderer);
@@ -95,4 +102,11 @@ bool colliding(SDL_Rect rect1, SDL_Rect rect2)
 		return true;
 	else
 		return false;
+}
+double getScale(SDL_Rect dims)
+{
+	if (dims.w > dims.h)
+		return (double)WINDOW_X / (double)dims.w;
+	else
+		return (double)WINDOW_Y / (double)dims.h;
 }
