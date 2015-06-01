@@ -6,6 +6,8 @@ using namespace Hydra;
 
 #define GRID_X 20
 #define GRID_Y 20
+#define WINDOW_X 800
+#define WINDOW_Y 600
 
 void drawGrid(int xPos, int yPos);
 inline bool colliding(SDL_Rect rect1, SDL_Rect rect2);
@@ -15,12 +17,12 @@ int main(int argc, char* argv[])
 	srand(SDL_GetTicks());
 	HydraEngine* engine = HydraEngine::getInstance();
 	engine->init();
+	engine->setWSize(WINDOW_X, WINDOW_Y);
 	engine->setWTitle("Agar.exe, the free port of Agar.io");
 	SDL_Renderer* renderer = engine->getRenderer();
 
 
 	vector<Cell*> cells;
-
 	SuperCell playerCells;
 	Cell cell(200);
 	cells.push_back(&cell);

@@ -18,6 +18,7 @@ public:
 	float getCMassX(); //Get the X center of mass
 	float getCMassY(); //Get the Y center of mass
 	float getMass(); //Get the total mass.
+	SDL_Rect getDims(); //Get the dimensions. Can be used for scaling purposes.
 private:
 	float massX;
 	float massY;

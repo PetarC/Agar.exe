@@ -67,3 +67,23 @@ float SuperCell::getMass()
 		mass += (*iter)->getMass();
 	return mass;
 }
+SDL_Rect SuperCell::getDims()
+{
+	//Should get the max dims in every direction
+	SDL_Rect dims;
+	dims = (*cells.begin())->getRect(); //Dummy; not really useful
+	for (auto iter = cells.begin(); iter != cells.end(); iter++)
+	{
+		Cell* cell = *iter;
+		if (cell->getX() < dims.x)
+			dims.x = cell->getX();
+		if (cell->getX() - dims.w > dims.w)
+			dims.w = cell->getX() - dims.w;
+		if (cell->getY() < dims.y)
+			dims.y = cell->getY();
+		if (cell->getY() - dims.h > dims.h)
+			dims.h = cell->getY() - dims.h;
+	}
+
+	return dims;
+}
