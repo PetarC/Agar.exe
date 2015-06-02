@@ -1,4 +1,5 @@
 #include "SuperCell.h"
+#include <iostream>
 
 void SuperCell::setAbTarget(float pX, float pY)
 {
@@ -71,19 +72,27 @@ SDL_Rect SuperCell::getDims()
 {
 	//Should get the max dims in every direction
 	SDL_Rect dims;
-	dims = (*cells.begin())->getRect(); //Dummy; not really useful
+	dims.x = getCMassX();
+	dims.y = getCMassY();
+	dims.w = (*cells.begin())->getRect().w;
+	dims.h = (*cells.begin())->getRect().h;
 	for (auto iter = cells.begin(); iter != cells.end(); iter++)
 	{
 		Cell* cell = *iter;
+
+		//Top and left edges
 		if (cell->getX() < dims.x)
 			dims.x = cell->getX();
-		if (cell->getX() - dims.w > dims.w)
-			dims.w = cell->getX() - dims.w;
 		if (cell->getY() < dims.y)
 			dims.y = cell->getY();
-		if (cell->getY() - dims.h > dims.h)
-			dims.h = cell->getY() - dims.h;
-	}
 
+		//Bottom and right edges
+		if (cell->getX() > dims.w)
+			dims.w = cell->getX();
+		if (cell->getY() > dims.h)
+			dims.h = cell->getY();
+	}
+	dims.w -= dims.x; //Correct coordinate form to dimension form
+	dims.h -= dims.y;
 	return dims;
 }
