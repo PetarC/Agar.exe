@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 			if (*iter == nullptr)
 				continue;
 			(*iter)->move();
-			(*iter)->draw(renderer, vX - (engine->getWXSize() / 2.f), vY - (engine->getWYSize() / 2.f), scale);
+			(*iter)->draw(renderer, (vX * scale) - (engine->getWXSize() / 2.f), (vY * scale) - (engine->getWYSize() / 2.f), scale);
 		}
 
 		SDL_RenderPresent(renderer);
