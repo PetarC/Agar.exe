@@ -70,12 +70,15 @@ float SuperCell::getMass()
 }
 SDL_Rect SuperCell::getDims()
 {
+	if (cells.size() == 1)
+		return (*cells.begin())->getRect();
+
 	//Should get the max dims in every direction
 	SDL_Rect dims;
 	dims.x = getCMassX();
 	dims.y = getCMassY();
-	dims.w = (*cells.begin())->getRect().w;
-	dims.h = (*cells.begin())->getRect().h;
+	dims.w = getCMassX();//(*cells.begin())->getRect().w;
+	dims.h = getCMassY();//(*cells.begin())->getRect().h;
 	for (auto iter = cells.begin(); iter != cells.end(); iter++)
 	{
 		Cell* cell = *iter;
@@ -87,10 +90,10 @@ SDL_Rect SuperCell::getDims()
 			dims.y = cell->getY();
 
 		//Bottom and right edges
-		if (cell->getX() > dims.w)
-			dims.w = cell->getX();
-		if (cell->getY() > dims.h)
-			dims.h = cell->getY();
+		if (cell->getX() + cell->getRect().w > dims.w)
+			dims.w = cell->getX() + cell->getRect().w;
+		if (cell->getY() + cell->getRect().h > dims.h)
+			dims.h = cell->getY() + cell->getRect().h;
 	}
 	dims.w -= dims.x; //Correct coordinate form to dimension form
 	dims.h -= dims.y;
