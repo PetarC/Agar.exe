@@ -9,7 +9,7 @@ using namespace Hydra;
 #define WINDOW_X 800
 #define WINDOW_Y 600
 
-void drawGrid(int xPos, int yPos);
+void drawGrid(int xPos, int yPos, double scale = 1.0);
 inline bool colliding(SDL_Rect rect1, SDL_Rect rect2);
 inline double getScale(SDL_Rect dims);
 
@@ -25,10 +25,10 @@ int main(int argc, char* argv[])
 
 	vector<Cell*> cells;
 	SuperCell playerCells;
-	Cell cell(200);
+	Cell cell(1200);
 	cells.push_back(&cell);
 	playerCells.addCell(&cell);
-	double scale = 1.0;
+	double scale = getScale(playerCells.getDims());
 
 	float vX = 0, vY = 0; //Viewer X and Y
 
@@ -55,14 +55,21 @@ int main(int argc, char* argv[])
 		playerCells.setAbTarget(mX + vX - (engine->getWXSize() / 2.f), mY + vY - (engine->getWYSize() / 2.f));
 		playerCells.moveToTarget();
 
-		//Graphics
-		SDL_RenderClear(renderer);
-		drawGrid(-vX, -vY);
-
 		//Determine scaling
-		scale = getScale(playerCells.getDims());
+		double tempScale = getScale(playerCells.getDims());
+		if (fabs(scale - tempScale) >  tempScale * 0.02)
+			scale < tempScale ? scale += (0.01 * tempScale) : scale -= (0.01 * tempScale);
+		else
+			scale = tempScale;
 		if (scale > 1.f)
 			scale = 1.f; //No zooming in!
+		cout << "Scale: " << scale << endl;
+		SDL_Rect dims = playerCells.getDims();
+		cout << "SCell dims: " << dims.x << ", " << dims.y << " , " << dims.w << ", " << dims.h << endl;
+
+		//Graphics
+		SDL_RenderClear(renderer);
+		drawGrid(-vX, -vY, scale);
 
 		for (auto iter = cells.begin(); iter != cells.end(); iter++)
 		{
@@ -78,7 +85,7 @@ int main(int argc, char* argv[])
 	engine->shutdown();
 }
 
-void drawGrid(int xPos, int yPos)
+void drawGrid(int xPos, int yPos, double scale)
 {
 	//Draw in the background, a dark grey color
 	SDL_Rect rect;
@@ -90,10 +97,11 @@ void drawGrid(int xPos, int yPos)
 
 	//Draw in the grid
 	SDL_SetRenderDrawColor(engine->getRenderer(), 125, 125, 125, 255);
-	for (int iX = -xPos / GRID_X; iX <= (engine->getWXSize() / GRID_X) + abs(xPos); iX++)
-		SDL_RenderDrawLine(engine->getRenderer(), (iX * GRID_X) + xPos, 0, (iX * GRID_X) + xPos, engine->getWYSize());
-	for (int iY = -yPos / GRID_Y; iY <= (engine->getWYSize() / GRID_Y) + abs(yPos); iY++)
-		SDL_RenderDrawLine(engine->getRenderer(), 0, (iY * GRID_Y) + yPos, engine->getWXSize(), (iY * GRID_Y) + yPos);
+	for (int iX = -xPos / GRID_X; iX <= (1.f / scale) * (engine->getWXSize() / GRID_X) + fabs(scale * (float)xPos); iX++)
+		SDL_RenderDrawLine(engine->getRenderer(), (iX * GRID_X * scale) + xPos, 0, (iX * GRID_X * scale) + xPos, engine->getWYSize());
+
+	for (int iY = -yPos / GRID_Y; iY <= (1.f / scale) * (engine->getWYSize() / GRID_Y) + fabs(scale * (float)yPos); iY++)
+		SDL_RenderDrawLine(engine->getRenderer(), 0, (iY * GRID_Y * scale) + yPos, engine->getWXSize(), (iY * GRID_Y * scale) + yPos);
 }
 bool colliding(SDL_Rect rect1, SDL_Rect rect2)
 {
@@ -105,7 +113,7 @@ bool colliding(SDL_Rect rect1, SDL_Rect rect2)
 }
 double getScale(SDL_Rect dims)
 {
-	if (dims.w > dims.h)
+	if (WINDOW_X - dims.w > WINDOW_Y - dims.h)
 		return (double)WINDOW_X / (double)dims.w;
 	else
 		return (double)WINDOW_Y / (double)dims.h;
