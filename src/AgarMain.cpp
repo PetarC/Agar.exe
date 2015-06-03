@@ -98,10 +98,10 @@ void drawGrid(int xPos, int yPos, double scale)
 	//Draw in the grid
 	SDL_SetRenderDrawColor(engine->getRenderer(), 125, 125, 125, 255);
 	for (int iX = -xPos / GRID_X; iX <= (1.f / scale) * (engine->getWXSize() / GRID_X) + fabs(scale * (float)xPos); iX++)
-		SDL_RenderDrawLine(engine->getRenderer(), (iX * GRID_X * scale) + xPos, 0, (iX * GRID_X * scale) + xPos, engine->getWYSize());
+		SDL_RenderDrawLine(engine->getRenderer(), (iX * GRID_X * scale) + (xPos * scale), 0, (iX * GRID_X * scale) + (xPos * scale), engine->getWYSize());
 
 	for (int iY = -yPos / GRID_Y; iY <= (1.f / scale) * (engine->getWYSize() / GRID_Y) + fabs(scale * (float)yPos); iY++)
-		SDL_RenderDrawLine(engine->getRenderer(), 0, (iY * GRID_Y * scale) + yPos, engine->getWXSize(), (iY * GRID_Y * scale) + yPos);
+		SDL_RenderDrawLine(engine->getRenderer(), 0, (iY * GRID_Y * scale) + (yPos * scale), engine->getWXSize(), (iY * GRID_Y * scale) + (yPos * scale));
 }
 bool colliding(SDL_Rect rect1, SDL_Rect rect2)
 {
