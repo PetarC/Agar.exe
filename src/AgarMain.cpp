@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 
 	vector<Cell*> cells;
 	SuperCell playerCells;
-	Cell cell(1200);
+	Cell cell(800);
 	cells.push_back(&cell);
 	playerCells.addCell(&cell);
 	double scale = getScale(playerCells.getDims());
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 		//Determine scaling
 		double tempScale = getScale(playerCells.getDims());
 		if (fabs(scale - tempScale) >  tempScale * 0.02)
-			scale < tempScale ? scale += (0.01 * tempScale) : scale -= (0.01 * tempScale);
+			scale < tempScale ? scale += (0.005 * tempScale) : scale -= (0.005 * tempScale);
 		else
 			scale = tempScale;
 		if (scale > 1.f)
@@ -113,7 +113,7 @@ bool colliding(SDL_Rect rect1, SDL_Rect rect2)
 }
 double getScale(SDL_Rect dims)
 {
-	if (WINDOW_X - dims.w > WINDOW_Y - dims.h)
+	if (dims.w > dims.h)
 		return (double)WINDOW_X / (double)dims.w;
 	else
 		return (double)WINDOW_Y / (double)dims.h;
