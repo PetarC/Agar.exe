@@ -6,6 +6,7 @@
 #define cellSpeed 15.f //Max speed of a unit cell
 #define minSplitSize 40 //Minimum size needed to split.
 #define absorbPercent 1.2f //The fraction the other cell's mass must be in order to be absorbed
+#define targetSensitivity 7500.f //Sensitivity to cursor position. Note: this affects accel, which is TINY!
 
 class Cell : public Absorbable
 {
