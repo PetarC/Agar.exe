@@ -29,8 +29,8 @@ void Absorbable::draw(SDL_Renderer* renderer, float vPosX, float vPosY, float sc
 	//Draw a circle... actually a square for now. Sorry!
 	double radius = mass * scale; //TODO: Ensure that this formula works as intended...
 	SDL_Rect rect;
-	rect.x = posX - (vPosX * scale) - (radius / 2.f);
-	rect.y = posY - (vPosY * scale) - (radius / 2.f);
+	rect.x = (posX * scale) - vPosX - (radius / 2.f);
+	rect.y = (posY * scale) - vPosY - (radius / 2.f);
 	rect.h = radius,
 	rect.w = radius;
 

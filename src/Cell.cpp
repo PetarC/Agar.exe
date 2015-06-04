@@ -9,11 +9,13 @@ void Cell::setAbTarget(float pX, float pY)
 {
 	tDir.setX(pX - posX);
 	tDir.setY(pY - posY);
+	tDir.setMag(tDir.getMag() / targetSensitivity);//Make this less sensitive - defined by the targetSensitivity constant.
 }
 void Cell::setRlTarget(float pX, float pY)
 {
 	tDir.setX(pX);
 	tDir.setY(pY);
+	tDir.setMag(tDir.getMag() / targetSensitivity);//Make this less sensitive - defined by the targetSensitivity constant.
 }
 void Cell::move()
 {
