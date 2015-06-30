@@ -31,7 +31,7 @@ void Absorbable::draw(SDL_Renderer* renderer, float vPosX, float vPosY, float sc
 	SDL_Rect rect;
 	rect.x = (posX * scale) - vPosX - (radius / 2.f);
 	rect.y = (posY * scale) - vPosY - (radius / 2.f);
-	rect.h = radius,
+	rect.h = radius;
 	rect.w = radius;
 
 	SDL_SetRenderDrawColor(renderer, color.getR(), color.getG(), color.getB(), 255);

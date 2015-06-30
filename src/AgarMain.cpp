@@ -90,8 +90,10 @@ void drawGrid(int xPos, int yPos, double scale)
 	//Draw in the background, a dark grey color
 	SDL_Rect rect;
 	HydraEngine* engine = HydraEngine::getInstance();
-	rect.x = 0; rect.y = 0;
-	rect.w = engine->getWXSize(); rect.h = engine->getWYSize();
+	rect.x = 0;
+	rect.y = 0;
+	rect.w = engine->getWXSize();
+	rect.h = engine->getWYSize();
 	SDL_SetRenderDrawColor(engine->getRenderer(), 39, 39, 39, 255);
 	SDL_RenderFillRect(engine->getRenderer(), &rect);
 

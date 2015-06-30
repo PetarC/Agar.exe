@@ -2,8 +2,10 @@
 
 Cell::Cell(int newMass) : Absorbable(newMass)
 {
-	tDir.setX(0); tDir.setY(0);
-	vel.setX(0); vel.setY(0);
+	tDir.setX(0);
+	tDir.setY(0);
+	vel.setX(0);
+	vel.setY(0);
 }
 void Cell::setAbTarget(float pX, float pY)
 {
