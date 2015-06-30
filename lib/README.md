@@ -3,7 +3,7 @@
 Any code stored here is not a direct result of work in
 this repository; it is separate. Not all code here is
 mine either. In any case, information deemed important
-or relavent is displayed below.
+or relevant is displayed below.
 
 ##Hydra Engine
 The MIT License (MIT)
