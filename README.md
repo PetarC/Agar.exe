@@ -8,7 +8,7 @@ Agar.exe is an almost complete clone of Agar.io, but offline, written in C++, an
 * "Viruses" that can either split you or protect you (depending on size).
 * NPC cells that roam around, absorb agar, and may chase you from time to time
 * Windows and Linux support
-* Multiplayer is planned, but is extremely very far off. It will probably be the very last thing added, if at all. If implemented, multiplayer will not be free servers available for everyone, but rather a server side and a client side that allows anyone to set up a server.
+* Multiplayer is planned, but is extremely very far off. It will probably be the very last thing added, if at all. If implemented, multiplayer will not be online servers available to everyone (as currently seen on the real Agar game), but rather a server side and a client side that allows anyone to set up a server.
 
 ##Misc
 This project is partly because I really want an offline version of Agar.io, and partly as a technical test. I have a prototype game engine that I'd like to test out, and this is a pretty good way to do it. There might eventually be semi-cringeworthy stuff here (I'm not exactly a professional...), but I hope not!
